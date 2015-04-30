@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 
-public class FitstTest {
+public class LoginTest {
     
     private WebDriver driver;
     private static final String url="http://allo.ua/";

@@ -6,7 +6,6 @@ import Pages.User;
 import helper.Helper;
 import org.junit.After;
 import org.junit.Assert;
-import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -34,11 +33,13 @@ public class AddtoCartTest {
     
     @Test
     public void testCatList() {
+        
         String query="Lenovo S850 Dark Blue";
         int count=6;
         
         user.login();
-        user.addToCart(6, query);        
+        user.addToCart(6, query); 
+        
         Assert.assertEquals(query, cartPage.getProdName());
         Assert.assertEquals(count, cartPage.getCountProd());
     }

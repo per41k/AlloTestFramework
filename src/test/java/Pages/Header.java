@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
@@ -34,14 +35,16 @@ public class Header {
     @FindBy(xpath="//button[@class='button']")
     protected WebElement search_button;
     
-    @FindBy(xpath="//div[@id='topCart']//span[@class='cart-title']")
-    protected WebElement cart;    
+    @FindBy(xpath="//div[@class='icon_cart_big']")
+    protected WebElement cart_pic;    
    
     @FindBy(id="first")
     protected WebElement login_pers_cab_button;
     
     @FindBy(id="last")
     protected WebElement reg_unlogin_button;
+    
+    private String filepath="C:\\Users\\User\\Documents\\Projects\\AlloTestFramework\\src\\test\\java\\Tests\\data\\categories.csv";
     
     public Header(WebDriver drv) {          
 	PageFactory.initElements(this.driver=drv, this);
@@ -74,7 +77,7 @@ public class Header {
     }    
     
     public File createDataCats(String[] menus) throws IOException {        
-        File data = new File("C:\\Users\\User\\Documents\\Projects\\AlloTestFramework\\src\\test\\java\\Tests\\data\\categories.csv");        
+        File data = new File(filepath);        
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream(data), "UTF8"));
         PrintWriter pw = new PrintWriter(out);
@@ -84,7 +87,7 @@ public class Header {
             all_items.addAll(getAllItemsFromMenu(s));
         }
         
-        for (int i=0;i<all_items.size();i++) {
+        for (int i=0;i<all_items.size();i++) {            
             if(i<all_items.size()-1) pw.println(all_items.get(i));
             else pw.print(all_items.get(i));
         }
@@ -147,13 +150,12 @@ public class Header {
         return item_names;
     }
     
-    public void goToCart() {
-        driver.get("http://allo.ua/checkout/cart/");
-        /*WebDriverWait wait = new WebDriverWait(driver, 10);
+    public void goToCart() throws WebDriverException {        
+        WebDriverWait wait = new WebDriverWait(driver, 10);
         Actions builder = new Actions(driver);
-        wait.until(ExpectedConditions.elementToBeClickable(cart));
-        builder.moveToElement(cart).build().perform();       
-        cart.click();*/
+        wait.until(ExpectedConditions.elementToBeClickable(cart_pic));
+        builder.moveToElement(cart_pic).build().perform();       
+        cart_pic.click();
         
     } 
 }
