@@ -20,6 +20,9 @@ public class SearchResaultsPage {
     @FindBy(xpath="//div[@class='toolbar-top']//span[@class='icon']")
     protected WebElement show_sorts;
     
+    @FindBy(id="advanced-navigation-overlay")
+    protected WebElement loader;
+    
     @FindBys(@FindBy(xpath="//span[@class='sum']"))
     public List<WebElement> productPrices;
     
@@ -43,7 +46,8 @@ public class SearchResaultsPage {
        Actions builder = new Actions(driver);
        builder.moveToElement(show_sorts).build().perform();
        driver.findElement(By.xpath("//div[@class='toolbar-top']//ul[@class='sort-list']//a[contains(text(),'"+by+"')]")).click();
-       Thread.sleep(5000);
+       WebDriverWait wait = new WebDriverWait(driver, 10);
+       wait.until(ExpectedConditions.not(ExpectedConditions.visibilityOf(loader)));
     }
     
     public List<String> getRequestResaults() {

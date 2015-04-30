@@ -31,7 +31,7 @@ public class SearchTest {
     }
     
     @Test
-    public void searchTest() {
+    public void searchTest() throws InterruptedException {
         String request="Apple Plus 128GB";
         header.search(request);
         searchResaultPage.sortBy("от дорогих к дешевым");        
