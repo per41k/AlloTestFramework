@@ -16,8 +16,6 @@ public class CartPage {
     
     @FindBy(xpath="//table[@id='cartListTable']//span[@class='count']")
     protected WebElement prod_count;  
-     
-     //table[@id='cartListTable']//span[@class='count']
     
     public CartPage(WebDriver drv) {
         PageFactory.initElements(this.driver=drv, this);
