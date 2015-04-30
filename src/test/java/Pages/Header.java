@@ -51,7 +51,8 @@ public class Header {
     }    
     
     public void goToLoginPage() {
-        login_pers_cab_button.click();        
+        if(login_pers_cab_button.getText().equals("Войти"))
+            login_pers_cab_button.click();        
     }   
     
     public String getUsername() {
@@ -150,9 +151,12 @@ public class Header {
         return item_names;
     }
     
-    public void goToCart() throws WebDriverException {        
-        WebDriverWait wait = new WebDriverWait(driver, 10);        
-        wait.until(ExpectedConditions.elementToBeClickable(cart_pic));       
-        cart_pic.click();        
-    } 
+    public void goToCart() throws WebDriverException {
+        driver.get("http://allo.ua/checkout/cart/");
+          
+    }
+    
+    public void goToCab () {        
+        login_pers_cab_button.click();
+    }
 }

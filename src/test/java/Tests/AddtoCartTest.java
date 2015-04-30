@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class AddtoCartTest {
@@ -28,6 +29,7 @@ public class AddtoCartTest {
     
     @After
     public void tearDown() {
+        driver.findElement(By.xpath("//a[@class='remove-icon icon']")).click();
 	driver.close();
     }
     
@@ -38,7 +40,7 @@ public class AddtoCartTest {
         int count=6;
         
         user.login();
-        user.addToCart(6, query); 
+        user.addToCart(6, query);        
         
         Assert.assertEquals(query, cartPage.getProdName());
         Assert.assertEquals(count, cartPage.getCountProd());

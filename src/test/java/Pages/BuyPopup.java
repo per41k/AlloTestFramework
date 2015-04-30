@@ -34,7 +34,7 @@ public class BuyPopup {
             quan_ikr_button.click();
             wait.until(ExpectedConditions.visibilityOf(current_quan));
             curr_quan=Integer.parseInt(current_quan.getAttribute("value"));
-        }
-        close_button.click();
+        }        
+        close_button.click();       
     }
 }

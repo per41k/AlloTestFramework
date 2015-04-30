@@ -11,6 +11,7 @@ public class User{
     private static LoginPage loginPage;
     private static SearchResaultsPage searchResaultsPage;
     private static BuyPopup buyPopup;
+    private static CabPage cabPage;
     private final String email="test-emailadress@yandex.ru";
     private final String password="test_pass123";
     private final String username="TestUser";
@@ -44,7 +45,17 @@ public class User{
     public void addToCart(int quantily, String prod_name) {
         header.search(prod_name);
         searchResaultsPage.clickBuy(prod_name);
-        buyPopup.setQuantily(quantily);
-        header.goToCart();        
+        buyPopup.setQuantily(quantily); 
+        header.goToCart();
+    }
+    
+    public void goToCabMenu(String... cab_menu) {
+        header.goToCab();
+        if(cab_menu.length==1)
+            cabPage.goTo(cab_menu[0]);
+        else if(cab_menu.length==2) {
+            cabPage.goTo(cab_menu[0]);
+            cabPage.goTo(cab_menu[1]);
+        }
     }
 }
