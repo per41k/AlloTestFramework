@@ -2,10 +2,7 @@ package Tests.search;
 
 import Pages.Header;
 import Pages.SearchResaultsPage;
-import Pages.User;
-import com.google.common.collect.Ordering;
 import helper.Helper;
-import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
 import static org.junit.Assert.*;
