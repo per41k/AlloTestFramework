@@ -1,4 +1,4 @@
-package Tests;
+package Tests.search;
 
 import Pages.Header;
 import Pages.SearchResaultsPage;
