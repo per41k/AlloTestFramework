@@ -151,11 +151,8 @@ public class Header {
     }
     
     public void goToCart() throws WebDriverException {        
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        Actions builder = new Actions(driver);
-        wait.until(ExpectedConditions.elementToBeClickable(cart_pic));
-        builder.moveToElement(cart_pic).build().perform();       
-        cart_pic.click();
-        
+        WebDriverWait wait = new WebDriverWait(driver, 10);        
+        wait.until(ExpectedConditions.elementToBeClickable(cart_pic));       
+        cart_pic.click();        
     } 
 }
