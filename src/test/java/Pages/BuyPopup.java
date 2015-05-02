@@ -15,9 +15,7 @@ public class BuyPopup {
     protected WebElement current_quan;    
     
     @FindBy(xpath="//span[@class='qty-link control-up']")
-    protected WebElement quan_ikr_button;
-    
-    
+    protected WebElement quan_ikr_button;    
     
     @FindBy(xpath="//div[@class='lightbox cart-lightbox']//a[@class='lb-close icon']")
     protected WebElement close_button;

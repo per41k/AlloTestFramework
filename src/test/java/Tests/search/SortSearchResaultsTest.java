@@ -31,13 +31,26 @@ public class SortSearchResaultsTest {
     
     @Test
     public void searchTest() throws InterruptedException {
+        
         String request="Apple";
         header.search(request);
-        searchResaultPage.sortBy("от дорогих к дешевым");
-        List<Integer> searchResault=searchResaultPage.getRequestResaultsPrice();
         
+        searchResaultPage.sortBy("по имени");
+        List<String> searchResault=searchResaultPage.getRequestResaults();        
         for (int i=0;i<searchResault.size()-1;i++) {
-            assertTrue(searchResault.get(i)>=searchResault.get(i+1));                           
-        }        
+            assertTrue(searchResault.get(i).compareTo(searchResault.get(i+1))<1);                           
+        }
+        
+        searchResaultPage.sortBy("от дорогих к дешевым");
+        List<Integer> prices=searchResaultPage.getRequestResaultsPrice();        
+        for (int i=0;i<prices.size()-1;i++) {
+            assertTrue(prices.get(i)>=prices.get(i+1));                           
+        }
+        
+        searchResaultPage.sortBy("от дешевых к дорогим");
+        prices=searchResaultPage.getRequestResaultsPrice();        
+        for (int i=0;i<prices.size()-1;i++) {
+            assertTrue(prices.get(i)<=prices.get(i+1));                           
+        }       
     }
 }
