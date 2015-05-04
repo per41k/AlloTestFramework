@@ -36,10 +36,13 @@ public class Header {
     protected WebElement search_button;
     
     @FindBy(xpath="//div[@class='icon_cart_big']")
-    protected WebElement cart_pic;    
-   
+    protected WebElement cart_pic;
+    
     @FindBy(id="first")
     protected WebElement login_pers_cab_button;
+   
+    @FindBy(id="last")
+    protected WebElement reg_button;
     
     @FindBy(id="last")
     protected WebElement reg_unlogin_button;
@@ -53,7 +56,12 @@ public class Header {
     public void goToLoginPage() {
         if(login_pers_cab_button.getText().equals("Войти"))
             login_pers_cab_button.click();        
-    }   
+    }
+    
+    public void goToRegPage() {
+        if(reg_button.getText().equals("Регистрация"))
+            reg_button.click();        
+    } 
     
     public String getUsername() {
         return login_pers_cab_button.getText();

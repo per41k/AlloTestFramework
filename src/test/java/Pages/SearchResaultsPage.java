@@ -42,12 +42,16 @@ public class SearchResaultsPage {
         }        
     }
     
+    public void waituntilLoaderGone() {
+       WebDriverWait wait = new WebDriverWait(driver, 10);
+       wait.until(ExpectedConditions.not(ExpectedConditions.visibilityOf(loader)));
+    }
+    
     public void sortBy(String by) throws InterruptedException {
        Actions builder = new Actions(driver);
        builder.moveToElement(show_sorts).build().perform();
        driver.findElement(By.xpath("//div[@class='toolbar-top']//ul[@class='sort-list']//a[contains(text(),'"+by+"')]")).click();
-       WebDriverWait wait = new WebDriverWait(driver, 10);
-       wait.until(ExpectedConditions.not(ExpectedConditions.visibilityOf(loader)));
+       waituntilLoaderGone();
     }
     
     public List<String> getRequestResaults() {
