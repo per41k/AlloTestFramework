@@ -42,7 +42,7 @@ public class User{
                 textToBePresentInElement(header.login_pers_cab_button, "Войти"));
     }
     
-    public void addToCart(int quantily, String prod_name) {
+    public void addToCart(int quantily, String prod_name) throws InterruptedException {
         header.search(prod_name);
         searchResultsPage.clickBuy(prod_name);
         buyPopup.setQuantily(quantily); 

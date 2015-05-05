@@ -29,7 +29,7 @@ public class SearchResultsPage {
     private final WebDriver driver;
     
     public SearchResultsPage(WebDriver drv) {
-	PageFactory.initElements(this.driver=drv, this);       
+	PageFactory.initElements(this.driver=drv, this);  
     }
     
     public void setCategories(String... cat) {        
@@ -69,8 +69,11 @@ public class SearchResultsPage {
         return prices;
     }
     
-    public void clickBuy(String title) {        
-        WebElement button=driver.findElement(By.xpath("//a[@class='product-name' and @title='"+title+"']/../../..//button/span"));              
-        button.click();        
+    public void clickBuy(String title) throws InterruptedException {        
+        WebElement button=driver.findElement(By.xpath("//a[@class='product-name' and @title='"+title+"']/../../..//button"));
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOf(button));
+        Actions builder = new Actions(driver);
+        builder.moveToElement(button).click().build().perform();
     }
 }

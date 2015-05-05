@@ -33,6 +33,12 @@ public class Header {
     @FindBys(@FindBy(xpath="//div[@id='search_autocomplete']//li//div/a"))
     protected List<WebElement> autosearch_results_list;
     
+    @FindBy(id="topCartTitle")
+    protected WebElement cart;
+    
+    @FindBy(id="topCartCount")
+    protected WebElement cart_count;
+    
     @FindBy(id="search")
     protected WebElement search_field;
     
@@ -174,11 +180,18 @@ public class Header {
     }
     
     public void goToCart() throws WebDriverException {
-        driver.get("http://allo.ua/checkout/cart/");
-          
+        WebDriverWait wait = new WebDriverWait(driver, 20);
+        wait.until(ExpectedConditions.visibilityOf(cart));
+        cart.click();
     }
     
     public void goToCab () {        
         login_pers_cab_button.click();
+    }
+    
+    public int getCartCount() {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOf(cart_count));
+        return Integer.parseInt(cart_count.getText());
     }
 }

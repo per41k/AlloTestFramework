@@ -31,7 +31,7 @@ public class SearchTest {
     }
     
     @Test
-    public void searchTest() throws InterruptedException, IOException {
+    public void searchTest() throws IOException {
         List<String> searchResault;
         List<String> queries=Helper.getListFromFile("manufacturers");
                 

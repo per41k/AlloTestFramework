@@ -4,11 +4,12 @@ import Pages.CartPage;
 import Pages.Header;
 import Pages.User;
 import helper.Helper;
+import java.io.IOException;
+import java.util.List;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class AddtoCartTest {
@@ -28,21 +29,27 @@ public class AddtoCartTest {
     }
     
     @After
-    public void tearDown() {
-        driver.findElement(By.xpath("//a[@class='remove-icon icon']")).click();
+    public void tearDown() {        
 	driver.close();
     }
     
     @Test
-    public void testCatList() {
+    public void testCatList() throws IOException, InterruptedException {
+        int sum=0;
+        List<String> orders=Helper.getListFromFile("orders");
         
-        String query="Lenovo S850 Dark Blue";
-        int count=6;
+        //user.login();
+        for(String order:orders) {
+            String query = order.substring(0, order.indexOf(':'));
+            int count=Integer.parseInt(order.substring(order.indexOf(':')+1));        
+            
+            user.addToCart(count, query);        
+            //sum=+count;
+            Assert.assertEquals(query, cartPage.getLastProdName());
+            Assert.assertEquals(count, cartPage.getLastCountProd());            
+            driver.get(url);
+        }
+        //Assert.assertEquals(sum, header.getCartCount());
         
-        user.login();
-        user.addToCart(6, query);        
-        
-        Assert.assertEquals(query, cartPage.getProdName());
-        Assert.assertEquals(count, cartPage.getCountProd());
     }
 }

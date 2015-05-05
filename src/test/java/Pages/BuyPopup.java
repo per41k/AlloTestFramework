@@ -11,6 +11,9 @@ public class BuyPopup {
     
     private final WebDriver driver;
     
+    @FindBy(xpath="//div[@class='lightbox cart-lightbox']")
+    protected WebElement popup;
+    
     @FindBy(id="qty")
     protected WebElement current_quan;    
     
@@ -24,8 +27,15 @@ public class BuyPopup {
         PageFactory.initElements(this.driver=drv, this);
     }
     
+    public void closePopup() {
+        close_button.click();
+        //После закрытия попапа покупки не могу кликнуть по корзине, поэтому
+        //перезагрузим страницу.
+        driver.get(driver.getCurrentUrl());
+    }
+    
     public void setQuantily(int number) {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOf(current_quan));
         int curr_quan=Integer.parseInt(current_quan.getAttribute("value"));        
         while (curr_quan!=number) {
@@ -33,6 +43,6 @@ public class BuyPopup {
             wait.until(ExpectedConditions.visibilityOf(current_quan));
             curr_quan=Integer.parseInt(current_quan.getAttribute("value"));
         }        
-        close_button.click();       
+        closePopup();
     }
 }
