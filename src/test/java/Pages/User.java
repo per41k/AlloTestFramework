@@ -9,7 +9,7 @@ public class User{
     private final WebDriver driver;
     private static Header header;
     private static LoginPage loginPage;
-    private static SearchResaultsPage searchResaultsPage;
+    private static SearchResultsPage searchResultsPage;
     private static BuyPopup buyPopup;
     private static CabPage cabPage;
     private final String email="test-emailadress@yandex.ru";
@@ -20,7 +20,7 @@ public class User{
         this.driver=drv;
         header = new Header(drv);
         loginPage = new LoginPage(drv);
-        searchResaultsPage=new SearchResaultsPage(drv);
+        searchResultsPage=new SearchResultsPage(drv);
         buyPopup=new BuyPopup(drv);
     }
     
@@ -44,7 +44,7 @@ public class User{
     
     public void addToCart(int quantily, String prod_name) {
         header.search(prod_name);
-        searchResaultsPage.clickBuy(prod_name);
+        searchResultsPage.clickBuy(prod_name);
         buyPopup.setQuantily(quantily); 
         header.goToCart();
     }

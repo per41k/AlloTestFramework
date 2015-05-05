@@ -12,7 +12,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class SearchResaultsPage {
+public class SearchResultsPage {
     
     @FindBys(@FindBy(xpath="//ul[@class='products-grid']//p[@class='product-name-container']/a"))
     private List<WebElement> productNames;
@@ -28,7 +28,7 @@ public class SearchResaultsPage {
     
     private final WebDriver driver;
     
-    public SearchResaultsPage(WebDriver drv) {
+    public SearchResultsPage(WebDriver drv) {
 	PageFactory.initElements(this.driver=drv, this);       
     }
     
@@ -54,27 +54,19 @@ public class SearchResaultsPage {
        waituntilLoaderGone();
     }
     
-    public List<String> getRequestResaults() {
+    public List<String> getRequestResults() {
         List<String> products = new ArrayList<>();                
         for(WebElement item : productNames)
             products.add(item.getAttribute("title"));
         return products;
     }
     
-    public List<Integer> getRequestResaultsPrice() {        
+    public List<Integer> getRequestResultsPrice() {        
         List<Integer> prices = new ArrayList<>();        
         for(WebElement item : productPrices) {            
             prices.add(Integer.parseInt(item.getText().replace(" ", "")));
         }            
         return prices;
-    }
-    
-    public boolean contains(String substr, String str) {
-        String[] arrstr=substr.split(" ");
-        for (String s:arrstr) {
-            if(!str.contains(s)) return false;
-        }
-        return true;
     }
     
     public void clickBuy(String title) {        

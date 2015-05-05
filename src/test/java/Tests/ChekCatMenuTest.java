@@ -17,7 +17,6 @@ public class ChekCatMenuTest {
     private static final String url="http://allo.ua/";
     private static Header header;
     private static User user;
-    private static final String filepath="C:\\Users\\User\\Documents\\Projects\\AlloTestFramework\\src\\test\\java\\Tests\\data\\categories.csv";
     
     @Before
     public void SetUp() {
@@ -48,6 +47,6 @@ public class ChekCatMenuTest {
                 
         for(String s: main_menu)
             item_menu_names.addAll(header.getAllItemsFromMenu(s));        
-        assertTrue(header.compareCats(item_menu_names, filepath));        
+        assertTrue(header.compareCats(item_menu_names, "categories"));        
     }
 }

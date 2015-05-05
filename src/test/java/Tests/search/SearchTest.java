@@ -1,9 +1,9 @@
 package Tests.search;
 
 import Pages.Header;
-import Pages.SearchResaultsPage;
-import Pages.User;
+import Pages.SearchResultsPage;
 import helper.Helper;
+import java.io.IOException;
 import java.util.List;
 import org.junit.After;
 import static org.junit.Assert.*;
@@ -16,13 +16,13 @@ public class SearchTest {
     private WebDriver driver;
     private static final String url="http://allo.ua/";
     private static Header header;
-    private static SearchResaultsPage searchResaultPage;
+    private static SearchResultsPage searchResultPage;
         
     @Before
     public void SetUp() {
         driver=Helper.Setup(url);
         header=new Header(driver);
-        searchResaultPage = new SearchResaultsPage(driver);
+        searchResultPage = new SearchResultsPage(driver);
     }
     
     @After
@@ -31,13 +31,21 @@ public class SearchTest {
     }
     
     @Test
-    public void searchTest() throws InterruptedException {
-        String request="Apple Plus 128GB";
-        header.search(request);
-        searchResaultPage.sortBy("от дорогих к дешевым");        
-        List<String> searchResault=searchResaultPage.getRequestResaults();        
-        for (String res : searchResault) {        
-            assertTrue(searchResaultPage.contains(request, res));
-        }
+    public void searchTest() throws InterruptedException, IOException {
+        List<String> searchResault;
+        List<String> queries=Helper.getListFromFile("manufacturers");
+                
+        for(String query:queries) {
+            header.writeQuery(query);
+            searchResault=header.getRequestResultsFromList();
+            for (String res : searchResault) {        
+                assertTrue(Helper.contains(query, res));
+            }
+            header.clickSearch();                
+            searchResault=searchResultPage.getRequestResults();        
+                for (String res : searchResault) {        
+            assertTrue(Helper.contains(query, res));
+            }
+        }        
     }
 }

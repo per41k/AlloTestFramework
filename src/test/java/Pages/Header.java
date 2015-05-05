@@ -1,5 +1,6 @@
 package Pages;
 
+import helper.Helper;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -27,7 +28,10 @@ public class Header {
     private final WebDriver driver;
     
     @FindBys(@FindBy(xpath="//div[@id='menuBlocks']//td[@class='sales' or @class='links']//a"))
-    private List<WebElement> cat_names;
+    protected List<WebElement> cat_names;
+    
+    @FindBys(@FindBy(xpath="//div[@id='search_autocomplete']//li//div/a"))
+    protected List<WebElement> autosearch_results_list;
     
     @FindBy(id="search")
     protected WebElement search_field;
@@ -47,7 +51,10 @@ public class Header {
     @FindBy(id="last")
     protected WebElement reg_unlogin_button;
     
-    private String filepath="C:\\Users\\User\\Documents\\Projects\\AlloTestFramework\\src\\test\\java\\Tests\\data\\categories.csv";
+    @FindBy(id="search_autocomplete")
+    protected WebElement results;
+    
+    private final String filepath="C:\\Users\\User\\Documents\\Projects\\AlloTestFramework\\src\\test\\java\\Tests\\data\\categories.csv";
     
     public Header(WebDriver drv) {          
 	PageFactory.initElements(this.driver=drv, this);
@@ -72,12 +79,32 @@ public class Header {
                 + "//a[text()='"+mainMenu+"']")).click();
     }
     
-    public void search(String request) {
-        search_field.sendKeys(request);
+    public void writeQuery(String query) {
+        search_field.clear();
+        search_field.sendKeys(query);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOf(results));
+    }
+    
+    public void clickSearch() {
         search_button.click();
     }
     
-    public List<String> getRequestResaults() {
+    public void search(String request) {
+        search_field.clear();
+        search_field.sendKeys(request);
+        clickSearch();
+    }
+    
+    public List<String> getRequestResultsFromList() {
+        List<String> results = new ArrayList<>();        
+        for (WebElement res : autosearch_results_list) {                       
+            results.add(res.getText());
+        }        
+        return results;
+    }
+    
+    public List<String> getRequestResults() {
         List<String> products = new ArrayList<>();        
         for (WebElement cat_name : cat_names) {                       
             products.add(cat_name.getText());
@@ -105,21 +132,8 @@ public class Header {
     }
     
     public boolean compareCats(List<String> cats, String filepath) throws IOException {        
-        return cats.equals(getListFromFile(filepath));        
+        return cats.equals(Helper.getListFromFile(filepath));        
     }
-
-    public List<String> getListFromFile(String filepath) throws IOException {        
-        File data = new File(filepath);
-        List<String> records = new ArrayList<>();
-        String record;
-        BufferedReader file = new BufferedReader(new InputStreamReader(
-                new FileInputStream(data), "UTF8"));
-        while ((record=file.readLine())!=null) {            
-            records.add(record);
-        }
-        file.close();
-        return records;            
-    }   
     
     public List<String> getAllItemsFromMenu(String name_menu) {   
         

@@ -1,7 +1,7 @@
 package Tests.search;
 
 import Pages.Header;
-import Pages.SearchResaultsPage;
+import Pages.SearchResultsPage;
 import helper.Helper;
 import java.util.List;
 import org.junit.After;
@@ -15,13 +15,13 @@ public class SortSearchResaultsTest {
     private WebDriver driver;
     private static final String url="http://allo.ua/";
     private static Header header;
-    private static SearchResaultsPage searchResaultPage;
+    private static SearchResultsPage searchResultPage;
         
     @Before
     public void SetUp() {
         driver=Helper.Setup(url);
         header=new Header(driver);
-        searchResaultPage = new SearchResaultsPage(driver);
+        searchResultPage = new SearchResultsPage(driver);
     }
     
     @After
@@ -35,20 +35,20 @@ public class SortSearchResaultsTest {
         String request="Apple";
         header.search(request);
         
-        searchResaultPage.sortBy("по имени");
-        List<String> searchResault=searchResaultPage.getRequestResaults();        
+        searchResultPage.sortBy("по имени");
+        List<String> searchResault=searchResultPage.getRequestResults();        
         for (int i=0;i<searchResault.size()-1;i++) {
             assertTrue(searchResault.get(i).compareTo(searchResault.get(i+1))<1);                           
         }
         
-        searchResaultPage.sortBy("от дорогих к дешевым");
-        List<Integer> prices=searchResaultPage.getRequestResaultsPrice();        
+        searchResultPage.sortBy("от дорогих к дешевым");
+        List<Integer> prices=searchResultPage.getRequestResultsPrice();        
         for (int i=0;i<prices.size()-1;i++) {
             assertTrue(prices.get(i)>=prices.get(i+1));                           
         }
         
-        searchResaultPage.sortBy("от дешевых к дорогим");
-        prices=searchResaultPage.getRequestResaultsPrice();        
+        searchResultPage.sortBy("от дешевых к дорогим");
+        prices=searchResultPage.getRequestResultsPrice();        
         for (int i=0;i<prices.size()-1;i++) {
             assertTrue(prices.get(i)<=prices.get(i+1));                           
         }       
