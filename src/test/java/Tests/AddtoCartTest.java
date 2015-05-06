@@ -18,7 +18,6 @@ public class AddtoCartTest {
     private static Header header;
     private static User user;
     private static CartPage cartPage;
-    private static final String filepath="C:\\Users\\User\\Documents\\Projects\\AlloTestFramework\\src\\test\\java\\Tests\\data\\categories.csv";
     
     @Before
     public void SetUp() {
@@ -38,18 +37,18 @@ public class AddtoCartTest {
         int sum=0;
         List<String> orders=Helper.getListFromFile("orders");
         
-        //user.login();
         for(String order:orders) {
-            String query = order.substring(0, order.indexOf(':'));
+            String query=order.substring(0, order.indexOf(':'));
             int count=Integer.parseInt(order.substring(order.indexOf(':')+1));        
+            sum+=count;
             
-            user.addToCart(count, query);        
-            //sum=+count;
+            user.addToCart(count, query);             
+            header.goToCart();
+            
             Assert.assertEquals(query, cartPage.getLastProdName());
             Assert.assertEquals(count, cartPage.getLastCountProd());            
             driver.get(url);
         }
-        //Assert.assertEquals(sum, header.getCartCount());
-        
+        Assert.assertEquals(sum, header.getCartCount());
     }
 }

@@ -26,7 +26,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class Header {    
     
     private final WebDriver driver;
-    
+     
     @FindBys(@FindBy(xpath="//div[@id='menuBlocks']//td[@class='sales' or @class='links']//a"))
     protected List<WebElement> cat_names;
     
@@ -35,6 +35,9 @@ public class Header {
     
     @FindBy(id="topCartTitle")
     protected WebElement cart;
+    
+    @FindBy(xpath="//div[@class='pos1']")
+    protected WebElement order_button;
     
     @FindBy(id="topCartCount")
     protected WebElement cart_count;
@@ -97,6 +100,7 @@ public class Header {
     }
     
     public void search(String request) {
+        //search_field.click();
         search_field.clear();
         search_field.sendKeys(request);
         clickSearch();
@@ -193,5 +197,11 @@ public class Header {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOf(cart_count));
         return Integer.parseInt(cart_count.getText());
+    }
+    
+    public void goToOrderPage() {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOf(order_button));
+        order_button.click();
     }
 }

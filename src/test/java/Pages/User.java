@@ -1,5 +1,8 @@
 package Pages;
 
+import helper.Helper;
+import java.io.IOException;
+import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -45,8 +48,7 @@ public class User{
     public void addToCart(int quantily, String prod_name) throws InterruptedException {
         header.search(prod_name);
         searchResultsPage.clickBuy(prod_name);
-        buyPopup.setQuantily(quantily); 
-        header.goToCart();
+        buyPopup.setQuantily(quantily);
     }
     
     public void goToCabMenu(String... cab_menu) {
@@ -56,6 +58,17 @@ public class User{
         else if(cab_menu.length==2) {
             cabPage.goTo(cab_menu[0]);
             cabPage.goTo(cab_menu[1]);
+        }
+    }
+    
+    public void makeOrder(String from_file) throws IOException, InterruptedException {        
+        List<String> orders=Helper.getListFromFile(from_file);
+        
+        for(String order:orders) {            
+            String query = order.substring(0, order.indexOf(':'));
+            int count=Integer.parseInt(order.substring(order.indexOf(':')+1));
+            
+            addToCart(count, query);            
         }
     }
 }

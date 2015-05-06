@@ -1,5 +1,6 @@
 package Pages;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -33,6 +34,18 @@ public class CartPage {
     public int getLastCountProd() {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOf(prod_count.get(prod_pictures.size()-1)));
-        return Integer.parseInt(prod_count.get(prod_pictures.size()-1).getText());
+        return Integer.parseInt(prod_count.get(prod_count.size()-1).getText());
+    }
+    
+    public List<String> getBuyList() {
+        List<String> buyList = new ArrayList<>();
+        
+        for(int i=0;i<prod_count.size();i++) {
+            WebDriverWait wait = new WebDriverWait(driver, 10);
+            wait.until(ExpectedConditions.visibilityOf(prod_count.get(prod_pictures.size()-1)));
+            buyList.add(prod_pictures.get(i).getAttribute("title")+":"+prod_count.get(i).getText());
+            System.out.println(buyList.get(i));
+        }
+        return buyList;
     }
 }
