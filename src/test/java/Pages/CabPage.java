@@ -13,9 +13,9 @@ public class CabPage {
     @FindBys(@FindBy(xpath="//div[@class='block-content']/ul//a"))
     private List<WebElement> cat_names;
     
-     private final WebDriver driver;
+    private final WebDriver driver;
      
-     public CabPage(WebDriver drv) {
+    public CabPage(WebDriver drv) {
         PageFactory.initElements(this.driver=drv, this);
     }
      

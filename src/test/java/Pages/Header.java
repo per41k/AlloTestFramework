@@ -204,4 +204,8 @@ public class Header {
         wait.until(ExpectedConditions.visibilityOf(order_button));
         order_button.click();
     }
+    
+    public void clickHeaderMenu(String menu) {
+        driver.findElement(By.xpath("//ul[@class='header-links']//a[text()='"+menu+"']")).click();
+    }
 }

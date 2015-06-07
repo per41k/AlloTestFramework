@@ -20,6 +20,14 @@ public class RegistrationTheSameEmailTest {
     private final String name="Вася";
     private final String email="test-emailadress@yandex.ru";
     private final String password="test_pass123";
+
+    @Before
+    public void setUp() {
+        driver=Helper.Setup(url);
+        header=new Header(driver);
+        loginPage=new LoginPage(driver);
+        registrationPage=new RegistrationPage(driver);
+    }
     
     @Test
     public void RegistrationTheSameEmailTest() {        
@@ -29,14 +37,6 @@ public class RegistrationTheSameEmailTest {
                 "Пользователь с таким e-mail уже зарегистрирован.\n" +
                 "Пожалуйста, для входа введите пароль",
                 loginPage.getErrMess());
-    }   
-    
-    @Before
-    public void setUp() {
-        driver=Helper.Setup(url);
-        header=new Header(driver);
-        loginPage=new LoginPage(driver);
-        registrationPage=new RegistrationPage(driver);
     }
     
     @After
